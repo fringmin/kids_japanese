@@ -21,7 +21,9 @@
 
 ## 裝到 iPad 上
 
-1. 用 Safari 開啟 GitHub Pages 網址
+網址：**https://fringmin.github.io/kids_japanese/**
+
+1. 用 Safari 開啟上面的網址
 2. 分享按鈕 → 「加入主畫面」
 3. 從主畫面圖示開啟即為全螢幕 App，之後離線也能玩
 4. 「跟著唸」第一次使用會詢問麥克風權限，請按允許

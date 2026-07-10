@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>こどもにほんご</title>
+<meta name="description" content="給小朋友的日文學習小遊戲：50音、單字卡、聽力遊戲、跟讀練習">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="にほんご">
+<meta name="theme-color" content="#ffd6e0">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="topbar" class="hidden">
+  <button id="btn-back" class="icon-btn" aria-label="返回">◀</button>
+  <div id="topbar-title">こどもにほんご</div>
+  <button id="btn-profile" class="profile-chip" aria-label="目前玩家">
+    <span id="chip-avatar">🌸</span>
+    <span id="chip-stars">⭐0</span>
+  </button>
+</header>
+
+<main>
+
+  <!-- 選擇玩家 -->
+  <section id="screen-profile" class="screen">
+    <h1 class="app-title">こどもにほんご<br><small>日文小遊戲</small></h1>
+    <p class="subtitle">今天是誰要玩呢？</p>
+    <div id="profile-list" class="profile-list"></div>
+  </section>
+
+  <!-- 主選單 -->
+  <section id="screen-home" class="screen hidden">
+    <div class="menu-grid">
+      <button class="menu-card" data-go="kana">
+        <span class="menu-emoji">🗾</span>
+        <span class="menu-name">50音表</span>
+        <span class="menu-sub">あいうえお</span>
+      </button>
+      <button class="menu-card" data-go="decks-cards">
+        <span class="menu-emoji">🃏</span>
+        <span class="menu-name">單字卡</span>
+        <span class="menu-sub">點一點聽發音</span>
+      </button>
+      <button class="menu-card" data-go="quiz-kana-listen">
+        <span class="menu-emoji">👂</span>
+        <span class="menu-name">聽音選字</span>
+        <span class="menu-sub">假名遊戲</span>
+      </button>
+      <button class="menu-card" data-go="quiz-kana-match">
+        <span class="menu-emoji">🤝</span>
+        <span class="menu-name">平片配對</span>
+        <span class="menu-sub">あ ↔ ア</span>
+      </button>
+      <button class="menu-card" data-go="decks-listen">
+        <span class="menu-emoji">🎧</span>
+        <span class="menu-name">聽單字選圖</span>
+        <span class="menu-sub">單字遊戲</span>
+      </button>
+      <button class="menu-card" data-go="decks-speak">
+        <span class="menu-emoji">🎤</span>
+        <span class="menu-name">跟著唸</span>
+        <span class="menu-sub">換你說日文！</span>
+      </button>
+    </div>
+    <div id="home-stats" class="home-stats"></div>
+  </section>
+
+  <!-- 50音表 -->
+  <section id="screen-kana" class="screen hidden">
+    <div class="tabs">
+      <button class="tab active" data-kanatab="hira">ひらがな<br><small>平假名</small></button>
+      <button class="tab" data-kanatab="kata">カタカナ<br><small>片假名</small></button>
+    </div>
+    <div id="kana-grid" class="kana-grid"></div>
+    <div id="kana-detail" class="kana-detail hidden"></div>
+  </section>
+
+  <!-- 選單字主題（單字卡 / 聽力 / 跟讀 共用） -->
+  <section id="screen-decks" class="screen hidden">
+    <p class="subtitle" id="decks-hint">選一個主題吧！</p>
+    <div id="deck-list" class="deck-list"></div>
+  </section>
+
+  <!-- 單字卡 -->
+  <section id="screen-cards" class="screen hidden">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-emoji" id="fc-emoji">🐈</div>
+      <div class="fc-jp" id="fc-jp">ねこ</div>
+      <div class="fc-reading" id="fc-reading"></div>
+      <div class="fc-zh" id="fc-zh">貓</div>
+      <div class="fc-tap-hint">👆 點卡片聽發音</div>
+    </div>
+    <div class="card-nav">
+      <button id="fc-prev" class="big-btn secondary">◀ 上一個</button>
+      <div id="fc-count" class="fc-count">1 / 10</div>
+      <button id="fc-next" class="big-btn">下一個 ▶</button>
+    </div>
+  </section>
+
+  <!-- 測驗（三種遊戲共用） -->
+  <section id="screen-quiz" class="screen hidden">
+    <div class="quiz-top">
+      <div id="quiz-progress" class="quiz-progress"></div>
+      <div id="quiz-score" class="quiz-score">0 分</div>
+    </div>
+    <div id="quiz-prompt" class="quiz-prompt"></div>
+    <div id="quiz-choices" class="quiz-choices"></div>
+    <div id="quiz-feedback" class="quiz-feedback"></div>
+  </section>
+
+  <!-- 跟讀模式 -->
+  <section id="screen-speak" class="screen hidden">
+    <div class="quiz-top">
+      <div id="speak-progress" class="quiz-progress"></div>
+      <div id="speak-score" class="quiz-score">0 分</div>
+    </div>
+    <div class="speak-card" id="speak-card">
+      <div class="fc-emoji" id="sp-emoji">🐈</div>
+      <div class="fc-jp" id="sp-jp">ねこ</div>
+      <div class="fc-reading" id="sp-reading"></div>
+      <div class="fc-zh" id="sp-zh">貓</div>
+    </div>
+    <div id="speak-status" class="speak-status">先聽一次，再換你唸！</div>
+    <div class="speak-controls">
+      <button id="sp-play" class="round-btn listen" aria-label="聽發音">🔊</button>
+      <button id="sp-mic" class="round-btn mic" aria-label="開始跟讀">🎤</button>
+      <button id="sp-next" class="big-btn hidden">下一個 ▶</button>
+    </div>
+    <button id="sp-selfpass" class="text-btn hidden">我有唸出來 ✓（自己過關）</button>
+  </section>
+
+  <!-- 回合結果 -->
+  <section id="screen-result" class="screen hidden">
+    <div class="result-box">
+      <div id="result-stars" class="result-stars"></div>
+      <div id="result-score" class="result-score"></div>
+      <div id="result-msg" class="result-msg"></div>
+      <button id="result-again" class="big-btn">再玩一次 🔁</button>
+      <button id="result-home" class="big-btn secondary">回主選單 🏠</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="praise-pop" class="praise-pop hidden"></div>
+
+<script src="js/data.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/recognition.js"></script>
+<script src="js/app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+}
+</script>
+</body>
+</html>

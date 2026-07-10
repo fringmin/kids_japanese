@@ -164,7 +164,7 @@ document.querySelectorAll('[data-kanatab]').forEach(tab => {
 function showKanaDetail(cell) {
   const d = $('kana-detail');
   d.innerHTML = `
-    <span class="kd-emoji">${cell.word.emoji}</span>
+    <span class="kd-emoji">${Art.html(cell.word)}</span>
     <span>
       <div class="kd-word">${cell.word.jp}</div>
       <div class="kd-zh">${cell.word.zh}</div>
@@ -194,7 +194,7 @@ function renderDecks(mode) {
     const btn = document.createElement('button');
     btn.className = 'deck-card';
     btn.innerHTML = `
-      <span class="deck-emoji">${deck.emoji}</span>
+      <span class="deck-emoji">${Art.deckIcon(deck)}</span>
       <span>
         <div class="deck-name">${deck.name}</div>
         <div class="deck-desc">${deck.desc}（${deck.words.length} 個字）</div>
@@ -223,7 +223,7 @@ function startCards(deck) {
 
 function renderCard() {
   const w = cardsDeck.words[cardIndex];
-  $('fc-emoji').textContent = w.emoji;
+  $('fc-emoji').innerHTML = Art.html(w);
   $('fc-jp').textContent = w.jp;
   $('fc-reading').textContent = w.jp === w.reading ? '' : w.reading;
   $('fc-zh').textContent = w.zh;
@@ -298,7 +298,7 @@ function renderQuestion() {
     btn.className = 'choice-btn';
     if (quiz.mode === 'kana-listen') btn.textContent = c.hira;
     else if (quiz.mode === 'kana-match') btn.textContent = c.kata;
-    else btn.innerHTML = `${c.emoji}<small>${c.zh}</small>`;
+    else btn.innerHTML = `${Art.html(c)}<small>${c.zh}</small>`;
     btn.addEventListener('click', () => answer(btn, c, q));
     choices.appendChild(btn);
   });
@@ -400,7 +400,7 @@ function renderSpeakWord() {
   const w = sp.words[sp.index];
   $('speak-progress').textContent = `第 ${sp.index + 1} / ${sp.words.length} 個`;
   $('speak-score').textContent = `${sp.score} 分`;
-  $('sp-emoji').textContent = w.emoji;
+  $('sp-emoji').innerHTML = Art.html(w);
   $('sp-jp').textContent = w.jp;
   $('sp-reading').textContent = w.jp === w.reading ? '' : w.reading;
   $('sp-zh').textContent = w.zh;

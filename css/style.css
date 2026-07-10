@@ -40,6 +40,14 @@ body {
 button { font-family: inherit; color: inherit; border: none; background: none; cursor: pointer; }
 .hidden { display: none !important; }
 
+/* 手繪 SVG 插圖：跟著容器的 font-size 縮放（和 emoji 一樣的行為） */
+.art { width: 1.3em; height: 1.3em; display: block; margin: 0 auto; }
+.art-emoji { display: block; }
+.fc-emoji .art, .speak-card .art { width: 140px; height: 140px; }
+.choice-btn .art { width: 84px; height: 84px; }
+.kd-emoji .art { width: 72px; height: 72px; }
+.deck-emoji .art { width: 60px; height: 60px; }
+
 /* ---------- 頂欄 ---------- */
 #topbar {
   position: sticky;

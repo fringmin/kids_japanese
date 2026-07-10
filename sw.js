@@ -1,12 +1,13 @@
 /* Service worker：cache-first，讓 App 離線也能玩
  * 改版時把 CACHE_VERSION +1，舊快取會自動清掉 */
-const CACHE_VERSION = 'knj-v1';
+const CACHE_VERSION = 'knj-v2';
 
 const ASSETS = [
   './',
   './index.html',
   './css/style.css',
   './js/data.js',
+  './js/art.js',
   './js/speech.js',
   './js/recognition.js',
   './js/app.js',

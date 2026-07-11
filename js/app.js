@@ -42,7 +42,7 @@ function showPraise() {
 }
 
 /* ---------- 畫面切換 ---------- */
-const SCREENS = ['profile', 'home', 'kana', 'decks', 'cards', 'quiz', 'speak', 'result'];
+const SCREENS = ['profile', 'home', 'kana', 'kanainfo', 'decks', 'cards', 'quiz', 'speak', 'result'];
 let backTarget = null; // 目前畫面按「返回」要去哪
 
 function show(name, { title = 'こどもにほんご', back = null } = {}) {
@@ -183,6 +183,41 @@ function showKanaDetail(cell) {
     Speech.speak(cell.word.jp);
   });
   d.onclick = () => Speech.speak(cell.word.jp);
+}
+
+/* ---------- 平假名 vs 片假名 說明頁 ---------- */
+$('btn-kanainfo').addEventListener('click', showKanaInfo);
+
+function showKanaInfo() {
+  const box = $('kanainfo-content');
+  if (!box.dataset.ready) {
+    box.innerHTML = `
+      <div class="info-card center">
+        <div class="info-big">あ ＝ ア</div>
+        <p>日文的字母有<b>兩套衣服</b>！<br>同一個音、兩種寫法，あ 和 ア 都唸「a」。</p>
+      </div>
+      <div class="info-card">
+        <h3>ひらがな 平假名 ＝ 家居服 👕</h3>
+        <p>圓圓軟軟的。日本自己的字、平常大部分的字都穿它。</p>
+        <button class="info-word" data-say="ねこ">${Art.html({ jp: 'ねこ' })}<span><b>ねこ</b><small>貓</small></span><span class="iw-play">🔊</span></button>
+      </div>
+      <div class="info-card">
+        <h3>カタカナ 片假名 ＝ 旅行裝 🧳</h3>
+        <p>方方硬硬的。從外國來的字，還有「砰！」「亮晶晶！」這種<b>音效字</b>穿它。</p>
+        <button class="info-word" data-say="トイレ">${Art.html({ jp: 'トイレ' })}<span><b>トイレ</b><small>廁所（英文 toilet 變來的）</small></span><span class="iw-play">🔊</span></button>
+        <button class="info-word" data-say="ドキドキ">${Art.html({ jp: 'ドキドキ' })}<span><b>ドキドキ</b><small>心跳撲通撲通（繪本圖旁邊常見！）</small></span><span class="iw-play">🔊</span></button>
+      </div>
+      <div class="info-card center">
+        <p>看角色書的時候兩種都會遇到，<br>快去「平片配對」幫它們找朋友吧！</p>
+        <button id="info-go-match" class="big-btn">玩平片配對 🤝</button>
+      </div>`;
+    box.querySelectorAll('[data-say]').forEach(b =>
+      b.addEventListener('click', () => Speech.speak(b.dataset.say))
+    );
+    box.querySelector('#info-go-match').addEventListener('click', () => startQuiz('kana-match'));
+    box.dataset.ready = '1';
+  }
+  show('kanainfo', { title: '兩種假名', back: renderKanaChart });
 }
 
 /* ---------- 單字主題選單（單字卡 / 聽力 / 跟讀 共用） ---------- */

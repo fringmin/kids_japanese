@@ -244,6 +244,37 @@ main {
 .kd-zh { color: var(--text-soft); font-size: 1.05rem; }
 .kd-play { margin-left: auto; }
 
+/* ---------- 平片假名說明頁 ---------- */
+#kanainfo-content { display: grid; gap: 14px; max-width: 520px; margin: 0 auto; }
+.info-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+}
+.info-card.center { text-align: center; }
+.info-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.info-card p { font-size: 1.05rem; line-height: 1.7; color: var(--text); }
+.info-card .big-btn { margin-top: 14px; }
+.info-big { font-size: 2.6rem; font-weight: 800; color: var(--pink); margin-bottom: 8px; }
+.info-word {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: var(--bg);
+  border-radius: 16px;
+  padding: 10px 14px;
+  margin-top: 10px;
+  text-align: left;
+  transition: transform 0.12s;
+}
+.info-word:active { transform: scale(0.97); }
+.info-word .art { width: 52px; height: 52px; margin: 0; }
+.info-word b { font-size: 1.3rem; display: block; }
+.info-word small { color: var(--text-soft); font-size: 0.92rem; }
+.info-word .iw-play { margin-left: auto; font-size: 1.3rem; }
+
 /* ---------- 單字主題選單 ---------- */
 .deck-list { display: grid; gap: 14px; }
 .deck-card {

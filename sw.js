@@ -1,6 +1,6 @@
 /* Service worker：cache-first，讓 App 離線也能玩
  * 改版時把 CACHE_VERSION +1，舊快取會自動清掉 */
-const CACHE_VERSION = 'knj-v3';
+const CACHE_VERSION = 'knj-v4';
 
 const ASSETS = [
   './',
@@ -18,7 +18,12 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE_VERSION).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  // cache: 'reload' → 繞過瀏覽器 HTTP 快取，確保存進來的一定是伺服器上的最新版
+  e.waitUntil(
+    caches.open(CACHE_VERSION)
+      .then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {

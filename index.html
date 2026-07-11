@@ -159,6 +159,11 @@
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+  // 新版 service worker 接管時自動重載一次，使用者不必手動清快取
+  let refreshed = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshed) { refreshed = true; location.reload(); }
+  });
 }
 </script>
 </body>

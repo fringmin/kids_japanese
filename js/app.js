@@ -501,11 +501,6 @@ $('sp-next').addEventListener('click', () => {
 document.addEventListener('pointerdown', () => Speech.unlock(), { once: true });
 
 (function init() {
-  const remembered = store.profiles.find(p => p.id === store.current);
-  if (remembered) {
-    profile = remembered;
-    goHome();
-  } else {
-    renderProfileSelect();
-  }
+  // 每次打開都先選人：兩姊妹共用 iPad，不自動沿用上次的玩家
+  renderProfileSelect();
 })();

@@ -1,6 +1,6 @@
 /* Service worker：cache-first，讓 App 離線也能玩
  * 改版時把 CACHE_VERSION +1，舊快取會自動清掉 */
-const CACHE_VERSION = 'knj-v4';
+const CACHE_VERSION = 'knj-v5';
 
 const ASSETS = [
   './',

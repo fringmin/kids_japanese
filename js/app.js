@@ -161,12 +161,19 @@ document.querySelectorAll('[data-kanatab]').forEach(tab => {
   });
 });
 
+/* 平假名 → 片假名（例字在片假名分頁顯示用） */
+const toKatakana = str => str.replace(/[ぁ-ゖ]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+
 function showKanaDetail(cell) {
   const d = $('kana-detail');
+  const isKata = kanaTab === 'kata';
+  const wordMain = isKata ? toKatakana(cell.word.jp) : cell.word.jp;
+  const wordSub = isKata ? `<div class="kd-sub">${cell.word.jp}</div>` : '';
   d.innerHTML = `
     <span class="kd-emoji">${Art.html(cell.word)}</span>
     <span>
-      <div class="kd-word">${cell.word.jp}</div>
+      <div class="kd-word">${wordMain}</div>
+      ${wordSub}
       <div class="kd-zh">${cell.word.zh}</div>
     </span>
     <button class="icon-btn kd-play">🔊</button>`;

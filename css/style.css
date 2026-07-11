@@ -240,6 +240,7 @@ main {
 }
 .kd-emoji { font-size: 3rem; }
 .kd-word { font-size: 1.6rem; font-weight: 800; }
+.kd-sub { color: var(--text-soft); font-size: 1rem; }
 .kd-zh { color: var(--text-soft); font-size: 1.05rem; }
 .kd-play { margin-left: auto; }
 
